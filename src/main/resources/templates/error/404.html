@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{admin/layouts/main}">
+      layout:decorate="~{front/layout/main}">
 <main layout:fragment="content">
-    <h1>메인 영역...</h1>
+    <th:block th:replace="~{error/_common::common}">
+
+    </th:block>
+
+
 </main>
+
+
+
 </html>

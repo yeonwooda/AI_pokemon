@@ -16,11 +16,9 @@ public class MainController {
 
     private final Utils utils;
 
-
     @GetMapping
     public String index(Model model) {
 
-        //return utils.tpl("main/index");
-        return "front/main/index";
+        return utils.tpl("main/index");
     }
 }
