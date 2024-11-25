@@ -5,7 +5,8 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UrlItem {
+public class Names {
+    private UrlItem language;
     private String name;
-    private String url;
+
 }
