@@ -13,3 +13,4 @@ public class RequestLogin {
     private String password;
     private String redirectUrl; // 로그인 완료 후 이동할 주소
 }
+

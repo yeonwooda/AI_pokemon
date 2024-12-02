@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class ApiTest2 {
-
     @Autowired
     private ApiUpdateService service;
 

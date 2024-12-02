@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @SessionAttributes("requestAgree")
 public class MemberController {
-
+    
     private final Utils utils;
     private final JoinValidator joinValidator; // 회원 가입 검증
     private final MemberUpdateService updateService; // 회원 가입 처리
@@ -41,14 +41,14 @@ public class MemberController {
     @GetMapping("/login")
     public String login(@ModelAttribute RequestLogin form, Model model) {
         commonProcess("login", model); // 로그인 페이지 공통 처리
-
+        
         return utils.tpl("member/login");
     }
 
     @PostMapping("/login")
     public String loginPs(@Valid RequestLogin form, Errors errors, Model model) {
         commonProcess("login", model); // 로그인 페이지 공통 처리
-
+        
         if (errors.hasErrors()) {
             return utils.tpl("member/login");
         }
@@ -131,7 +131,7 @@ public class MemberController {
 
     /**
      * 공통 처리 부분
-     *
+     * 
      * @param mode
      * @param model
      */

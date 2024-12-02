@@ -1,23 +1,17 @@
-/* 회원가입, 로그인 공통 S*/
+/* 회원가입, 로그인 공통 S */
 main {
-    padding: 120px 0 280px;
     background: #f7f7f7;
-
-
+    padding: 120px 0 280px;
 }
-
-/* 회원가입, 로그인 공통 S*/
-
+/* 회원가입, 로그인 공통 E */
 
 /* 로그인 S */
 .login-box {
-
     width: 470px;
     margin: 0 auto;
 }
 
 .login-logo {
-
     display: block;
     margin: 0 auto;
 }

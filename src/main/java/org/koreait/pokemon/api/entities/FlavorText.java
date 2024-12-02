@@ -9,8 +9,5 @@ import lombok.Data;
 public class FlavorText {
     @JsonAlias("flavor_text")
     private String flavorText;
-
     private UrlItem language;
-
-
 }
