@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.koreait.global.libs.Utils;
 import org.koreait.member.services.MemberUpdateService;
 import org.koreait.member.validators.JoinValidator;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -20,7 +21,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
-@SessionAttributes("requestAgree")
+@SessionAttributes({"requestAgree", "requestLogin"})
 public class MemberController {
     
     private final Utils utils;
@@ -32,6 +33,11 @@ public class MemberController {
         return new RequestAgree();
     }
 
+    @ModelAttribute("requestLogin")
+    public RequestLogin requestLogin() {
+        return new RequestLogin();
+    }
+
     /* 회원 페이지 CSS */
     @ModelAttribute("addCss")
     public List<String> addCss() {
@@ -39,33 +45,44 @@ public class MemberController {
     }
 
     @GetMapping("/login")
-    public String login(@ModelAttribute RequestLogin form, Model model) {
+    public String login(@ModelAttribute RequestLogin form, Errors errors, Model model) {
         commonProcess("login", model); // 로그인 페이지 공통 처리
-        
+
+        if (form.getErrorCodes() != null) { // 검증 실패
+            form.getErrorCodes().stream().map(s -> s.split("_"))
+                    .forEach(s -> {
+                        if (s.length > 1) {
+                            errors.rejectValue(s[1], s[0]);
+                        } else {
+                            errors.reject(s[0]);
+                        }
+                    });
+        }
+
         return utils.tpl("member/login");
     }
 
-    @PostMapping("/login")
-    public String loginPs(@Valid RequestLogin form, Errors errors, Model model) {
-        commonProcess("login", model); // 로그인 페이지 공통 처리
-        
-        if (errors.hasErrors()) {
-            return utils.tpl("member/login");
-        }
+    @ResponseBody
+    @GetMapping("/test")
+    public void test() {
+        /*
+        MemberInfo memberInfo = (MemberInfo)SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        System.out.println(memberInfo);
 
-        // 로그인 처리
-
-        /**
-         * 로그인 완료 후 페이지 이동
-         * 1) redirectUrl 값이 전달된 경우는 해당 경로로 이동
-         * 2) 없는 경우는 메인 페이지로 이동
-         *
          */
-        String redirectUrl = form.getRedirectUrl();
-        redirectUrl = StringUtils.hasText(redirectUrl) ? redirectUrl : "/";
-
-        return "redirect:" + redirectUrl;
+        System.out.println(SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal()); // 미로그인 상태 anonymousUser 문자열
     }
+    /*
+    public void test(@AuthenticationPrincipal MemberInfo memberInfo) {
+        System.out.println(memberInfo);
+    } */
+    /*
+    public void test(Principal principal) {
+        String email = principal.getName();
+        System.out.println(email);
+    } */
 
     /**
      * 회원가입 약관 동의
