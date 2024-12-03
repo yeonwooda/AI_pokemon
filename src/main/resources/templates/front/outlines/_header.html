@@ -27,7 +27,7 @@
                     <a href="#">
                         <div>
                             <i class="icon card-game"></i>
-                            <th:block th:text="#{카드 게임}"></th:block>
+                            <th:block th:text="#{카드_게임}"></th:block>
                         </div>
                     </a>
                 </li>
@@ -54,7 +54,7 @@
                 <li>
                     <a href="#">
                         <i class="icon catalog"></i>
-                        <th:block th:text="#{포켓몬 도감}"></th:block>
+                        <th:block th:text="#{포켓몬_도감}"></th:block>
                     </a>
                 </li>
                 <li>
@@ -63,9 +63,14 @@
                         <th:block th:text="#{로그인}"></th:block>
                     </a>
 
-                    <a th:if="${@memberUtil.isLogin()}" th:href="@{/mypage}">
+                    <a th:if="${@memberUtil.isLogin() && !@memberUtil.isAdmin()}" th:href="@{/mypage}">
                         <i class="icon login"></i>
                         <th:block th:text="#{MYPAGE}"></th:block>
+                    </a>
+
+                    <a th:if="${@memberUtil.isAdmin()}" th:href="@{/admin}" target="_blank">
+                        <i class="icon login"></i>
+                        <th:block th:text="#{사이트관리}"></th:block>
                     </a>
                 </li>
                 <li>
