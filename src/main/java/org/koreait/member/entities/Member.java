@@ -56,7 +56,7 @@ public class Member extends BaseEntity {
     @ToString.Exclude
     @OneToMany(mappedBy = "member")
     private List<Authorities> authorities;
-    
+
     // 비밀번호 변경 일시
     private LocalDateTime credentialChangedAt;
 }

@@ -10,6 +10,4 @@ public class PokemonApplication {
 		SpringApplication.run(PokemonApplication.class, args);
 	}
 
-
-	// _aA123456
 }
