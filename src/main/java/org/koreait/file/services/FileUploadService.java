@@ -24,9 +24,9 @@ import java.util.UUID;
 public class FileUploadService {
     private final FileProperties properties;
     private final FileInfoRepository fileInfoRepository;
+    private final FileInfoService infoService;
 
     public List<FileInfo> upload(RequestUpload form) {
-
         String gid = form.getGid();
         gid = StringUtils.hasText(gid) ? gid : UUID.randomUUID().toString();
 
@@ -43,6 +43,7 @@ public class FileUploadService {
             // 파일명.확장자 // model.weights.h5
             String fileName = file.getOriginalFilename();
             String extension = fileName.substring(fileName.lastIndexOf("."));
+
             FileInfo item = new FileInfo();
             item.setGid(gid);
             item.setLocation(location);
@@ -51,16 +52,16 @@ public class FileUploadService {
             item.setContentType(file.getContentType());
 
             fileInfoRepository.saveAndFlush(item);
+
             // 1. 파일 업로드 정보 - DB에 기록 E
 
             // 2. 파일 업로드 처리 S
             long seq = item.getSeq();
             String uploadFileName = seq + extension;
-
             long folder = seq % 10L; // 0 ~ 9
             File dir = new File(rootPath + folder);
-            // 디렉토리가 존재하지 않거나 파일로만 있는 경우 생성
-            if (dir.exists() || !dir.isDirectory()) {
+            // 디렉토리가 존재 하지 않거나 파일로만 있는 경우 생성
+            if (!dir.exists() || !dir.isDirectory()) {
                 dir.mkdirs();
             }
 
@@ -68,17 +69,20 @@ public class FileUploadService {
             try {
                 file.transferTo(_file);
 
+                // 추가 정보 처리
+                infoService.addInfo(item);
+
                 uploadedItems.add(item);
+
             } catch (IOException e) {
                 // 파일 업로드 실패 -> DB 저장된 데이터를 삭제
                 fileInfoRepository.delete(item);
                 fileInfoRepository.flush();
-
             }
             // 2. 파일 업로드 처리 E
         }
 
+
         return uploadedItems;
     }
-
 }
