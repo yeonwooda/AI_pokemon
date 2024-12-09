@@ -23,13 +23,12 @@ public class MvcConfig implements WebMvcConfigurer {
 
     /**
      * PATCH, PUT, DELETE 등등
-     * PATCH 메서드로 요청을 보내느 경우
-     * <form method="POST" ...>
+     * PATCH 메서드로 요청을 보내는 경우
+     * <form method='POST' ...>
      *      <input type='hidden' name='_method' value='PATCH'>
      * </form>
      * @return
      */
-
     @Bean
     public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
         return new HiddenHttpMethodFilter();

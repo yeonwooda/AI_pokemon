@@ -9,5 +9,4 @@ public class RequestProfile {
     private String nickName;
     private String password;
     private String confirmPassword;
-
 }

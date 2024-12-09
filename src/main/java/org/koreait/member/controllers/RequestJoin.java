@@ -35,7 +35,7 @@ public class RequestJoin extends RequestAgree {
     private LocalDate birthDt;  // 생년월일
 
     @NotNull
-    private Gender gender;
+    private Gender gender; // 성별
 
     @NotBlank
     private String zipCode; // 우편번호
