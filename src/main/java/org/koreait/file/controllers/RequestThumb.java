@@ -8,5 +8,4 @@ public class RequestThumb {
     private String url; // 원격 이미지 URL
     private int width;
     private int height;
-
 }

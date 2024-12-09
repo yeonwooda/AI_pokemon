@@ -56,8 +56,17 @@ commonLib.fileManager = {
             alert(err.message);
             console.error(err);
         }
+    },
+    /**
+    * 파일 등록번호로 파일 삭제
+    *
+    * @param seq : 파일 등록번호
+    * @param callback : 삭제 후 후속 처리 콜백 함수
+    */
+    delete(seq, callback) {
+        const { ajaxLoad } = commonLib;
+        ajaxLoad(`/api/file/delete/${seq}`, file => callback(file), 'DELETE');
     }
-
 };
 
 window.addEventListener("DOMContentLoaded", function() {
@@ -104,14 +113,13 @@ window.addEventListener("DOMContentLoaded", function() {
             // 기본 동작 차단
             e.preventDefault();
 
-
         });
 
         el.addEventListener("drop", function(e) {
             // 기본 동작 차단
             e.preventDefault();
 
-            const files = e.dataTransfer;
+            const files = e.dataTransfer.files;
 
             let {gid, location, single, imageOnly, done} = this.dataset;
             single = single === "true";
@@ -119,14 +127,12 @@ window.addEventListener("DOMContentLoaded", function() {
             done = done === "true";
 
             if (single && files.length > 1) { // 단일 파일 업로드 이지만 여러개를 선택한 경우
-                alert("하나의 파일만 업로드 하세요");
+                alert("하나의 파일만 업로드 하세요.");
                 return;
-
             }
 
             const { fileManager } = commonLib;
             fileManager.upload(files, gid, location, single, imageOnly, done);
-
         });
     }
 
