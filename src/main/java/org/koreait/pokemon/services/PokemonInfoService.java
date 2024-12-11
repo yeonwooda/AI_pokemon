@@ -1,8 +1,11 @@
 package org.koreait.pokemon.services;
 
 import com.querydsl.core.BooleanBuilder;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.koreait.global.libs.Utils;
 import org.koreait.global.paging.ListData;
+import org.koreait.global.paging.Pagination;
 import org.koreait.pokemon.controllers.PokemonSearch;
 import org.koreait.pokemon.entities.Pokemon;
 import org.koreait.pokemon.entities.QPokemon;
@@ -16,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.data.domain.Sort.Order.desc;
@@ -26,7 +30,8 @@ import static org.springframework.data.domain.Sort.Order.desc;
 public class PokemonInfoService {
 
     private final PokemonRepository pokemonRepository;
-
+    private final HttpServletRequest request;
+    private final Utils utils;
     /**
      * 포켓몬 목록 조회
      *
@@ -58,7 +63,10 @@ public class PokemonInfoService {
         // 추가 정보 처리
         items.forEach(this::addInfo);
 
-        return null;
+        int ranges = utils.isMobile() ? 5 : 10;
+        Pagination pagination = new Pagination(page, (int) data.getTotalElements(), ranges, limit, request);
+
+        return new ListData<>(items, pagination);
     }
 
     /**
@@ -74,6 +82,9 @@ public class PokemonInfoService {
         // 추가 정보 처리
         addInfo(item);
 
+        // Pagination(int page, int total, int ranges, int limit, HttpServletRequest request)
+
+
         return item;
     }
 
@@ -83,6 +94,11 @@ public class PokemonInfoService {
      * @param item
      */
     private void addInfo(Pokemon item) {
+        // abilities
+        String abilities = item.getAbilities();
+        if (StringUtils.hasText(abilities)) {
+            item.set_abilities(Arrays.stream(abilities.split("\\|\\|")).toList());
+        }
 
     }
 }
