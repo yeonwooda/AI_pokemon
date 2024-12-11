@@ -17,7 +17,7 @@ public class ThumbnailServiceTest {
         form.setSeq(1054L);
         form.setWidth(100);
         form.setHeight(100);
-        String path = service.getThumbPath(952L, null, 100, 100);
+        String path = service.getThumbPath(1054L, null, 100, 100);
         path = service.create(form);
         System.out.println(path);
 
