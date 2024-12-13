@@ -16,6 +16,6 @@ public class DbConfig {
     @Lazy
     @Bean
     public JPAQueryFactory jpaQueryFactory() {
-        return new JPAQueryFactory(em);
+        return new JPAQueryFactory(em); // 쿼리 / MemberRepository 봐보기
     }
 }
