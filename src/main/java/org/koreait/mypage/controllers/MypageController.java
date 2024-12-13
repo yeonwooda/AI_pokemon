@@ -98,8 +98,6 @@ public class MypageController {
 
     }
 
-
-
     /**
      * 컨트롤러 공통 처리 영역
      *

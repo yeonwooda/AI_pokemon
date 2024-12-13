@@ -136,14 +136,12 @@ public class MemberController {
 
     @ResponseBody
     @GetMapping("/refresh")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()") // 메서드 시큐리티 추가
     public void refresh(Principal principal) {
         MemberInfo memberInfo = (MemberInfo) infoService.loadUserByUsername(principal.getName());
         memberUtil.setMember(memberInfo.getMember());
 
     }
-
-
 
     /**
      * 공통 처리 부분
@@ -172,7 +170,6 @@ public class MemberController {
             model.addAttribute("requestAgree", requestAgree());
 
         }
-
 
         // 페이지 제목
         model.addAttribute("pageTitle", pageTitle);

@@ -26,9 +26,6 @@ public class PokemonController {
     private final Utils utils;
     private final PokemonInfoService infoService;
 
-
-
-
     @GetMapping("/list")
     public String list(@ModelAttribute PokemonSearch search, Model model) {
         commonProcess("list", model);
