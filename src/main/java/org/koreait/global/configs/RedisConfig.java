@@ -10,14 +10,14 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 public class RedisConfig {
-    @Value("${spring.data.redis.host}")
+    @Value("${spring.data.redis.host}") // yml 파일 설정 -> 레디스 설정
     private String host;
 
     @Value("${spring.data.redis.port}")
     private int port;
 
     @Bean
-    public RedisConnectionFactory redisConnectionFactory() {
+    public RedisConnectionFactory redisConnectionFactory() { // 레디스 빈 활성화
         return new LettuceConnectionFactory(host, port);
     }
 
