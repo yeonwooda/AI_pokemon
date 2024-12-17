@@ -15,7 +15,6 @@ public class ApiWishController {
     private final HttpServletRequest request;
     private final WishService service;
 
-
     @GetMapping({"/add", "/remove"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void process(@RequestParam("seq") Long seq, @RequestParam("type") WishType type) {
@@ -23,5 +22,4 @@ public class ApiWishController {
 
         service.process(mode, seq, type);
     }
-
 }
