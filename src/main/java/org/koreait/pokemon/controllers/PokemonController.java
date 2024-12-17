@@ -33,6 +33,7 @@ public class PokemonController {
         ListData<Pokemon> data = infoService.getList(search);
         model.addAttribute("items", data.getItems());
         model.addAttribute("pagination", data.getPagination());
+
         return utils.tpl("pokemon/list");
     }
 

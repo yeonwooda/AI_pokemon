@@ -15,8 +15,7 @@ public class PokemonInfoServiceTest {
     @Test
     void test1() {
         //Pokemon item = infoService.get(1L);
-       // System.out.println(item);
-
+        //System.out.println(item);
         PokemonSearch search = new PokemonSearch();
         search.setSkey("나무줄기");
         ListData<Pokemon> items = infoService.getList(search);
