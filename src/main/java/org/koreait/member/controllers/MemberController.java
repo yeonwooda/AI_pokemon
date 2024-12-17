@@ -29,7 +29,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @SessionAttributes({"requestAgree", "requestLogin"})
 public class MemberController {
-
+    
     private final Utils utils;
     private final MemberUtil memberUtil;
     private final JoinValidator joinValidator; // 회원 가입 검증
@@ -144,7 +144,7 @@ public class MemberController {
 
     /**
      * 공통 처리 부분
-     *
+     * 
      * @param mode
      * @param model
      */
