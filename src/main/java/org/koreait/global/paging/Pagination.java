@@ -28,10 +28,11 @@ public class Pagination {
     private String baseUrl;
 
     /**
-     * @param page   : 현재 페이지 번호
-     * @param total  : 총 레코드 갯수
+     *
+     * @param page : 현재 페이지 번호
+     * @param total : 총 레코드 갯수
      * @param ranges : 페이지 구간 갯수
-     * @param limit  : 한 페이지당 출력될 레코드 갯수
+     * @param limit : 한 페이지당 출력될 레코드 갯수
      */
     public Pagination(int page, int total, int ranges, int limit) {
         this(page, total, ranges, limit, null);
@@ -73,7 +74,7 @@ public class Pagination {
         baseUrl = "?";
         if (StringUtils.hasText(qs)) {
             baseUrl += Arrays.stream(qs.split("&"))
-                    .filter(s -> !s.contains("page="))
+                        .filter(s -> !s.contains("page="))
                     .collect(Collectors.joining("&")) + "&";
         }
         baseUrl += "page=";
@@ -101,7 +102,7 @@ public class Pagination {
 
         List<String[]> pages = new ArrayList<>();
         for (int i = firstRangePage; i <= lastRangePage; i++) {
-            String url = baseUrl + i;
+            String url =  baseUrl + i;
             pages.add(new String[] {"" + i, url});
         }
 

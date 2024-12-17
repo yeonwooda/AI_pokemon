@@ -10,9 +10,9 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@WithSecurityContext(factory = MockSecurityContestFactory.class)
+@WithSecurityContext(factory = MockSecurityContextFactory.class)
 public @interface MockMember {
-    long seq() default  1L;
+    long seq() default 1L;
     String email() default "user01@test.org";
     String password() default "_aA123456";
     String name() default "사용자01";

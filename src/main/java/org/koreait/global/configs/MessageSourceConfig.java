@@ -11,9 +11,9 @@ public class MessageSourceConfig {
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
-        ms.addBasenames("messages.commons", "messages.validations", "messages.errors", "messages.pokemon"); // 에러 공통 예외
+        ms.addBasenames("messages.commons", "messages.validations", "messages.errors", "messages.pokemon");
         ms.setDefaultEncoding("UTF-8");
-        ms.setUseCodeAsDefaultMessage(true); // NotBlank=필수 입력 항목입니다. 없을 때 저렇게 코드 형태 있으면 한글 형식으로  표출
+        ms.setUseCodeAsDefaultMessage(true);
 
         return ms;
     }

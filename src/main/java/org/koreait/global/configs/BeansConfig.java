@@ -9,15 +9,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.client.RestTemplate;
 
-/**
- * 수동 등록빈을 관리하기 위해서
- */
-
-
 @Configuration
 public class BeansConfig {
 
-    @Lazy // 사용하는 시점에서 관리하기 위해서? / 초기로딩 빠르게 하기 위해서
+    @Lazy
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
@@ -25,7 +20,7 @@ public class BeansConfig {
 
     @Lazy
     @Bean
-    public ModelMapper modelMapper() { //ModelMapper -> 데이터 치환 / 클래스클래스가 들어간다 / 범용 기능?
+    public ModelMapper modelMapper() {
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
@@ -34,11 +29,7 @@ public class BeansConfig {
 
     @Lazy
     @Bean
-    public ObjectMapper objectMapper() { // 레스트 컨트롤 내부에 ObjectMapper로 구현되어있는 / json형태로 리퀘스트 바디
-        // 응답 - 자바 -> json // json -> 자바 객체로 바꿔주는
-
-
-
+    public ObjectMapper objectMapper() {
         ObjectMapper om = new ObjectMapper();
         om.registerModule(new JavaTimeModule()); // java8 data & time api - java.time 패키지
 

@@ -1,6 +1,5 @@
 package org.koreait.member.test;
 
-
 import org.junit.jupiter.api.Test;
 import org.koreait.member.constants.Authority;
 import org.koreait.member.entities.Member;
@@ -25,5 +24,4 @@ public class MockMemberTest {
         System.out.println(memberUtil.isLogin());
         System.out.println(memberUtil.isAdmin());
     }
-
 }

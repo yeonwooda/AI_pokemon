@@ -23,7 +23,6 @@ public class MemberUtil {
      *  권한 - MANAGER, ADMIN
      * @return
      */
-
     public boolean isAdmin() {
          return isLogin() &&
                     getMember().getAuthorities().stream()
@@ -46,6 +45,7 @@ public class MemberUtil {
                 return member;
             }
         }
+
         return null;
     }
 }

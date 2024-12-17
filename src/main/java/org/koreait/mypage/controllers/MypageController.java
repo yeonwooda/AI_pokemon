@@ -37,13 +37,11 @@ public class MypageController {
 
     @ModelAttribute("profile")
     public Member getMember() {
-
         return memberUtil.getMember();
     }
 
     @ModelAttribute("addCss")
     public List<String> addCss() {
-
         return List.of("mypage/style");
     }
 
@@ -91,11 +89,11 @@ public class MypageController {
     @ResponseBody
     @GetMapping("/refresh")
     public void refresh(Principal principal, Model model) {
+
         MemberInfo memberInfo = (MemberInfo) infoService.loadUserByUsername(principal.getName());
         memberUtil.setMember(memberInfo.getMember());
 
         model.addAttribute("profile", memberInfo.getMember());
-
     }
 
     /**

@@ -30,8 +30,8 @@ public class SecurityConfig {
            c.loginPage("/member/login") // 로그인 양식을 처리할 주소
                    .usernameParameter("email")
                    .passwordParameter("password")
-                   .failureHandler(new LoginFailureHandler())  // 실패 시
-                   .successHandler(new LoginSuccessHandler()); //
+                   .failureHandler(new LoginFailureHandler())
+                   .successHandler(new LoginSuccessHandler());
         });
 
         http.logout(c -> {
@@ -41,7 +41,6 @@ public class SecurityConfig {
         /* 인증 설정 E */
 
         /* 인가 설정 S - 페이지 접근 통제 */
-
         /**
          * authenticated() : 인증받은 사용자만 접근
          * anonymous() : 인증 받지 않은 사용자만 접근
@@ -53,8 +52,6 @@ public class SecurityConfig {
          * hasRole("명칭")
          * hasAnyRole(...)
          */
-        
-        // 인가설정
         http.authorizeHttpRequests(c -> {
             c.requestMatchers("/mypage/**").authenticated() // 인증한 회원 
                     .requestMatchers("/member/login", "/member/join", "/member/agree").anonymous() // 미인증 회원
@@ -73,15 +70,13 @@ public class SecurityConfig {
         /* 자동 로그인 설정 S */
         http.rememberMe(c -> {
             c.rememberMeParameter("autoLogin")
-                    .tokenValiditySeconds(60 * 60 * 24 * 30) // 자동 로그인을 유지할 시간, 기본값 14일인데 우리는 30일로 적음
+                    .tokenValiditySeconds(60 * 60 * 24 * 30) // 자동 로그인을 유지할 시간, 기본값 14일
                     .userDetailsService(memberInfoService)
                     .authenticationSuccessHandler(new LoginSuccessHandler());
         });
-
         /* 자동 로그인 설정 E */
 
-
-        return http.build(); 
+        return http.build();
     }
 
     @Bean
