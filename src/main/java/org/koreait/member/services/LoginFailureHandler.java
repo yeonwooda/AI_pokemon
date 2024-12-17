@@ -23,13 +23,13 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 
         HttpSession session = request.getSession();
         RequestLogin form = Objects.requireNonNullElse((RequestLogin)session.getAttribute("requestLogin"), new RequestLogin());
-        form.setErrorCodes(null); // 요청이 있을 때마다 기존에 남아있으면 안돼서? / 세선으로 바꾼?
+        form.setErrorCodes(null);
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        form.setEmail(email); // setter로 넣은
-        form.setPassword(password); // setter로 넣은
+        form.setEmail(email);
+        form.setPassword(password);
 
         String redirectUrl = request.getContextPath() + "/member/login";
 
@@ -45,9 +45,10 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
                 errorCodes.add("NotBlank_password");
             }
 
+
             if (errorCodes.isEmpty()) {
                 errorCodes.add("Failure.validate.login");
-            } // 여기 거치지 않으면 값이 이미 있는?
+            }
 
             form.setErrorCodes(errorCodes);
         } else if (exception instanceof CredentialsExpiredException) { //  비밀번호가 만료된 경우
@@ -56,7 +57,6 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
             form.setErrorCodes(List.of("Failure.disabled.login"));
         }
 
-        System.out.println(exception);
 
         session.setAttribute("requestLogin", form);
 
