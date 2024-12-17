@@ -42,14 +42,13 @@ commonLib.ajaxLoad = function(url, callback, method = 'GET', data, headers) {
         options.body = data instanceof FormData ? data : JSON.stringify(data);
     }
 
-    return new Promise((resolve, reject)=> {
+    return new Promise((resolve, reject) => {
         fetch(url, options)
             .then(res => {
                 if (res.status !== 204)
                     return res.json();
                 else {
                     resolve();
-
                 }
             })
             .then(json => {
@@ -64,14 +63,13 @@ commonLib.ajaxLoad = function(url, callback, method = 'GET', data, headers) {
                 }
 
                 reject(json); // 처리 실패
-
             })
             .catch(err => {
                 console.error(err);
 
                 reject(err); // 응답 실패
             });
-        }); // promise
+    }); // Promise
 };
 
 window.addEventListener("DOMContentLoaded", function() {
