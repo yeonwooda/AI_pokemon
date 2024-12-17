@@ -28,30 +28,27 @@ public class EmailSendTest {
     @Autowired
     private EmailService service;
 
-
     @Test
-    void test1() throws Exception{
-
+    void test1() throws Exception {
         /**
          * to : 받는 이메일
          * cc : 참조
          * bcc : 숨은 참조
          */
-
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, false, "UTF-8");
-        helper.setTo("mcsun5@naver.com");
-        helper.setSubject("테스트 이메일 제목");
-        helper.setText("테스트 이메일 내용");
+        helper.setTo("yonggyo00@kakao.com");
+        helper.setSubject("테스트 이메일 제목...");
+        helper.setText("테스트 이메일 내용...");
         javaMailSender.send(message);
     }
 
     @Test
     void test2() {
         Context context = new Context();
-        context.setVariable("subject", "테스트 제목");
+        context.setVariable("subject", "테스트 제목...");
 
-        String text = templateEngine.process("email/auth", null, context);
+        String text = templateEngine.process("email/auth", context);
 
         System.out.println(text);
     }
@@ -59,11 +56,11 @@ public class EmailSendTest {
     @Test
     void test3() {
         RequestEmail form = new RequestEmail();
-        form.setTo(List.of("mcsun5@naver.com","mcsun5@naver.com"));
-        form.setCc(List.of("5dhtnwls@gmail.com"));
-        form.setBcc(List.of("5dhtnwls@gmail.com"));
-        form.setSubject("테스트 이메일 제목");
-        form.setContent("<h1>테스트 이메일 내용</h1>");
+        form.setTo(List.of("yonggyo00@kakao.com", "yonggyo00@kakao.com"));
+        form.setCc(List.of("yonggyo1981@gmail.com"));
+        form.setBcc(List.of("yonggyo1981@gmail.com"));
+        form.setSubject("테스트 이메일 제목...");
+        form.setContent("<h1>테스트 이메일 내용...</h1>");
 
         Map<String, Object> tplData = new HashMap<>();
         tplData.put("key1", "값1");
