@@ -25,17 +25,16 @@ public class WishService {
     private final JPAQueryFactory queryFactory;
 
     public void process(String mode, Long seq, WishType type) {
-        if (memberUtil.isLogin()) {
+        if (!memberUtil.isLogin()) {
             return;
         }
 
         mode = StringUtils.hasText(mode) ? mode : "add";
         Member member = memberUtil.getMember();
-
         try {
             if (mode.equals("remove")) { // 찜 해제
-                WishId wishid = new WishId(seq, type, member);
-                repository.deleteById(wishid);
+                WishId wishId = new WishId(seq, type, member);
+                repository.deleteById(wishId);
 
             } else { // 찜 추가
                 Wish wish = new Wish();
@@ -46,13 +45,11 @@ public class WishService {
             }
 
             repository.flush();
-        } catch (Exception e) {
-
-        }
+        } catch (Exception e) {}
     }
 
     public List<Long> getMyWish(WishType type) {
-        if (memberUtil.isLogin()) {
+        if (!memberUtil.isLogin()) {
             return null;
         }
 

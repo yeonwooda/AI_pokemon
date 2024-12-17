@@ -14,7 +14,7 @@ public class Wish {
 
     @Id
     @Enumerated(EnumType.STRING)
-    @Column(length = 15, name = "_type")
+    @Column(length=15, name="_type")
     private WishType type;
 
     @Id
