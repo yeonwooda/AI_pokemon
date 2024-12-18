@@ -8,8 +8,8 @@
 
     <section class="details" th:object="${item}">
         <div class="left">
-            <th:block th:uext="${@wishService.showWish(item.seq, 'POKEMON', myPokemons)}"></th:block>
-            <th:block th:utext="*{@utils.showImage(frontImage, 390, 390, 'image')}"></<th:block>
+            <th:block th:utext="${@wishService.showWish(item.seq, 'POKEMON', myPokemons)}"></th:block>
+            <th:block th:utext="*{@utils.showImage(frontImage, 390, 390, 'image')}"></th:block>
         </div>
         <div class="right">
             <div class="item-no"
@@ -23,7 +23,7 @@
                         <div class="tit" th:text="#{타입}"></div>
                         <div class="text">
                             <span th:each="type : *{_types}"
-                                      th:text="${#messages.msg(type)}"></span>
+                                  th:text="${#messages.msg(type)}"></span>
                         </div>
                     </li>
                     <li>
