@@ -28,20 +28,21 @@ public class BasicController {
         return Menus.getMenus(menuCode());
     }
 
-
     @GetMapping({"", "/siteConfig"})
     public String siteConfig(Model model) {
         commonProcess("siteConfig", model);
+
         return "admin/basic/siteConfig";
     }
 
     /**
      * 기본설정 공통 처리 부분
+     *
      * @param mode
      * @param model
      */
-
     private void commonProcess(String mode, Model model) {
+
         model.addAttribute("subMenuCode", mode);
     }
 }
