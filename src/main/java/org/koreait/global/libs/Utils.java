@@ -59,13 +59,13 @@ public class Utils {
 
     public List<String> getMessages(String[] codes) {
 
-            return Arrays.stream(codes).map(c -> {
-                try {
-                    return getMessage(c);
-                } catch (Exception e) {
-                    return "";
-                }
-            }).filter(s -> !s.isBlank()).toList();
+        return Arrays.stream(codes).map(c -> {
+            try {
+                return getMessage(c);
+            } catch (Exception e) {
+                return "";
+            }
+        }).filter(s -> !s.isBlank()).toList();
 
     }
 
@@ -177,5 +177,13 @@ public class Utils {
     public void removeSessionMessage() {
         HttpSession session = request.getSession();
         session.removeAttribute("showMessage");
+    }
+
+    public String getParam(String name) {
+        return request.getParameter(name);
+    }
+
+    public String[] getParams(String name) {
+        return request.getParameterValues(name);
     }
 }
