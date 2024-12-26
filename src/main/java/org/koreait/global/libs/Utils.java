@@ -166,11 +166,12 @@ public class Utils {
 
     /**
      * 메세지를 세션쪽에 저장해서 임시 팝업으로 띄운다.
+     *
      * @param message
      */
     public void showSessionMessage(String message) {
         HttpSession session = request.getSession();
-        session.setAttribute("showMessage",  message);
+        session.setAttribute("showMessage", message);
     }
 
     public void removeSessionMessage() {

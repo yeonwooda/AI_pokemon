@@ -12,5 +12,4 @@ public class SiteConfig {
     private int cssVersion;
     private int jsVersion;
     private boolean useEmailAuth;
-
 }

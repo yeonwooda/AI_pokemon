@@ -82,18 +82,19 @@ public class PokemonInfoService {
 
         return new ListData<>(items, pagination);
     }
-    
+
     // 내가 찜한 포켓몬 목록
     public ListData<Pokemon> getMyPokemons(PokemonSearch search) {
         List<Long> seq = wishService.getMyWish(WishType.POKEMON);
         if (seq == null || seq.isEmpty()) {
             return new ListData<>();
         }
+
         search.setSeq(seq);
 
         return getList(search);
-    } 
-    
+    }
+
     /**
      * 포켓몬 단일 조회
      *

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.koreait.global.entities.CodeValue;
-import org.koreait.global.repositories.CoedValueRepository;
+import org.koreait.global.repositories.CodeValueRepository;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CodeValueService {
-    private final CoedValueRepository repository;
+    private final CodeValueRepository repository;
     private final ObjectMapper om;
 
     /**
-     * JSON 문자열로 변환 후 저장
+     * JSON 문자열로 변환후 저장
+     *
      * @param code
      * @param value
      */
@@ -31,23 +32,21 @@ public class CodeValueService {
 
             repository.saveAndFlush(item);
 
-        } catch (JsonProcessingException e) {
-
-        }
+        } catch (JsonProcessingException e) {}
     }
 
-    public  <R> R get(String code, Class<R> cls) {
-         CodeValue item = repository.findById(code).orElse(null);
+    public <R> R get(String code, Class<R> cls) {
+        CodeValue item = repository.findById(code).orElse(null);
 
-         if (item != null) {
-             String json = item.getValue();
-             try {
-                 return om.readValue(json, cls);
+        if (item != null) {
+            String json = item.getValue();
+            try {
+               return om.readValue(json, cls);
 
-             } catch (JsonProcessingException e) {
+            } catch (JsonProcessingException e) {}
 
-             }
-         }
+        }
+
         return null;
     }
 

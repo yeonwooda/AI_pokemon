@@ -24,17 +24,14 @@ public class CommonInterceptor implements HandlerInterceptor {
 
     }
 
+
     /* 사이트 설정 */
     private void setSiteConfig(ModelAndView mv) {
-
         if (mv == null) {
             return;
         }
 
-        SiteConfig config = Objects.requireNonNullElseGet(codeValueService.get
-                ("siteConfig", SiteConfig.class), SiteConfig::new);
-
-
+        SiteConfig config = Objects.requireNonNullElseGet(codeValueService.get("siteConfig", SiteConfig.class), SiteConfig::new);
 
         mv.addObject("siteConfig", config);
     }
