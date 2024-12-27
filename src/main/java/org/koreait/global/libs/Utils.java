@@ -59,13 +59,13 @@ public class Utils {
 
     public List<String> getMessages(String[] codes) {
 
-        return Arrays.stream(codes).map(c -> {
-            try {
-                return getMessage(c);
-            } catch (Exception e) {
-                return "";
-            }
-        }).filter(s -> !s.isBlank()).toList();
+            return Arrays.stream(codes).map(c -> {
+                try {
+                    return getMessage(c);
+                } catch (Exception e) {
+                    return "";
+                }
+            }).filter(s -> !s.isBlank()).toList();
 
     }
 
@@ -185,5 +185,16 @@ public class Utils {
 
     public String[] getParams(String name) {
         return request.getParameterValues(name);
+    }
+
+    /**
+     *  줄개행 문자(\n 또는 \r\n)를 br 태그로 변환
+     *
+     * @param text
+     * @return
+     */
+    public String nl2br(String text) {
+        return text.replaceAll("\\r", "")
+                .replaceAll("\\n", "<br>");
     }
 }
