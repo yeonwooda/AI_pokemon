@@ -35,7 +35,7 @@ commonLib.ajaxLoad = function(url, callback, method = 'GET', data, headers, isTe
     const { getMeta } = commonLib;
     const csrfHeader = getMeta("_csrf_header");
     const csrfToken = getMeta("_csrf");
-    url = /^http[s]?:/.test(url) ? url : getMeta("rootUrl") + url.replace("/", "");
+    url = /^http[s]?:/.test(url) ? url : commonLib.url(url);
 
     headers = headers ?? {};
     headers[csrfHeader] = csrfToken;
@@ -156,6 +156,42 @@ commonLib.popup = function(url, width = 350, height = 350, isAjax = false) {
 commonLib.popupClose = function() {
     const layerEls = document.querySelectorAll(".layer-dim, .layer-popup");
     layerEls.forEach(el => el.parentElement.removeChild(el));
+};
+
+/**
+* 위지윅 에디터 로드
+*
+*/
+commonLib.loadEditor = function(id, height = 350) {
+
+    if (typeof ClassicEditor === 'undefined' || !id) {
+        return;
+    }
+
+    return new Promise((resolve, reject) => {
+        (async() => {
+            try {
+                const editor = await ClassicEditor.create(document.getElementById(id));
+                resolve(editor);
+
+                editor.editing.view.change((writer) => {
+                    writer.setStyle(
+                        "height",
+                        `${height}px`,
+                        editor.editing.view.document.getRoot()
+                      );
+                });
+
+
+
+            } catch (err) {
+                console.error(err);
+
+                reject(err);
+            }
+        })();
+    });
+
 };
 
 window.addEventListener("DOMContentLoaded", function() {

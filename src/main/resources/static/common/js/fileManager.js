@@ -106,6 +106,7 @@ window.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+
     // 드래그 앤 드롭 파일 업로드 처리
     const dragUploads = document.getElementsByClassName("drag-upload");
     for (const el of dragUploads) {
