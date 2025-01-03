@@ -21,7 +21,6 @@ public class ApiDlController {
     private final TrainService trainService;
     private final SentimentService sentimentService;
 
-
     @GetMapping("/data")
     public List<TrainItem> sendData(@RequestParam(name="mode", required = false) String mode) {
         List<TrainItem> items = trainService.getList(mode != null && mode.equals("ALL"));
