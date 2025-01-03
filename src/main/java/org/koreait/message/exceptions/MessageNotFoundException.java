@@ -7,6 +7,6 @@ public class MessageNotFoundException extends AlertBackException {
 
     public MessageNotFoundException() {
         super("NotFound.message", HttpStatus.NOT_FOUND);
-        setErrorCode(true );
+        setErrorCode(true);
     }
 }

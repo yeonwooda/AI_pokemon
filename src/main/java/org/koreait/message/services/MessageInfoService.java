@@ -5,6 +5,7 @@ import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.koreait.file.services.FileInfoService;
 import org.koreait.global.libs.Utils;
 import org.koreait.global.paging.ListData;
 import org.koreait.global.paging.Pagination;
@@ -26,6 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MessageInfoService {
 
+    private final FileInfoService fileInfoService;
     private final MessageRepository messageRepository;
     private final JPAQueryFactory queryFactory;
     private final HttpServletRequest request;
@@ -34,7 +36,7 @@ public class MessageInfoService {
 
     /**
      * 쪽지 하나 조회
-     *
+     * 
      * @param seq
      * @return
      */
@@ -53,6 +55,7 @@ public class MessageInfoService {
             builder.and(orBuilder);
         }
 
+
         Message item = messageRepository.findOne(builder).orElseThrow(MessageNotFoundException::new);
 
         addInfo(item); // 추가 정보 처리
@@ -61,8 +64,8 @@ public class MessageInfoService {
     }
 
     /**
-     * 쪽지 목록 조회
-     *
+     * 쪽지 목록 조회 
+     * 
      * @param search
      * @return
      */
@@ -73,16 +76,16 @@ public class MessageInfoService {
         int offset = (page - 1) * limit;
 
         // 검색 조건 처리 S
-
         BooleanBuilder andBuilder = new BooleanBuilder();
         QMessage message = QMessage.message;
         String mode = search.getMode();
         Member member = memberUtil.getMember();
+
         mode = StringUtils.hasText(mode) ? mode : "receive";
         // send - 보낸 쪽지 목록, receive - 받은 쪽지 목록
         andBuilder.and(mode.equals("send") ? message.sender.eq(member) : message.receiver.eq(member));
 
-        // 보낸 사람 조건 검색
+        // 보낸사람 조건 검색
         List<String> sender = search.getSender();
         if (mode.equals("receive") && sender != null && !sender.isEmpty()) {
             andBuilder.and(message.sender.email.in(sender));
@@ -112,9 +115,7 @@ public class MessageInfoService {
         items.forEach(this::addInfo); // 추가 정보 처리
 
         long total = messageRepository.count(andBuilder);
-
-        // 페이지네이션
-        Pagination pagination = new Pagination(page, (int)total, utils.isMobile() ? 5 : 10, limit, request);
+        Pagination pagination = new Pagination(page, (int)total, utils.isMobile() ? 5:10, limit, request);
 
         return new ListData<>(items, pagination);
     }
@@ -125,6 +126,8 @@ public class MessageInfoService {
      * @param item
      */
     private void addInfo(Message item) {
-
+        String gid = item.getGid();
+        item.setEditorImages(fileInfoService.getList(gid, "editor"));
+        item.setAttachFiles(fileInfoService.getList(gid, "attach"));
     }
 }
