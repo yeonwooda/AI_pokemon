@@ -52,4 +52,12 @@ public class Message extends BaseEntity {
 
     @Transient
     private boolean received;
+
+    // 삭제에 대한 상태값
+
+    private boolean deletedBySender; // 보내는  쪽에서 쪽지를 삭제한 경우
+
+    private boolean deletedByReceiver; // 받는 쪽에서 쪽지를 삭제한 경우
+
+    
 }
