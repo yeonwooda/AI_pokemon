@@ -24,7 +24,7 @@ public class MessageInfoService {
 
     /**
      * 쪽지 하나 조회
-     * 
+     *
      * @param seq
      * @return
      */
@@ -38,8 +38,8 @@ public class MessageInfoService {
     }
 
     /**
-     * 쪽지 목록 조회 
-     * 
+     * 쪽지 목록 조회
+     *
      * @param search
      * @return
      */
