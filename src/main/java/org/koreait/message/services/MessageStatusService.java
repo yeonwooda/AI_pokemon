@@ -1,6 +1,5 @@
 package org.koreait.message.services;
 
-
 import lombok.RequiredArgsConstructor;
 import org.koreait.message.constants.MessageStatus;
 import org.koreait.message.entities.Message;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class MessageStatusService {
+
     private final MessageInfoService infoService;
     private final MessageRepository repository;
 

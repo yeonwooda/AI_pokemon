@@ -70,7 +70,7 @@ public class ProductController implements SubMenus {
      */
     @PostMapping("/save")
     public String save(Model model) {
-        commonProcess("save", model);
+        commonProcess("", model);
 
         return "redirect:/admin/product/list";
     }
