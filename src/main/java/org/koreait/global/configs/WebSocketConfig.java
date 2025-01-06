@@ -16,13 +16,13 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-
         // ws://localhost:3000/message
-
         String profile = System.getenv("spring.profiles.active");
 
-        registry.addHandler(messageHandler, "message")
+
+        registry.addHandler(messageHandler, "msg")
                 .setAllowedOrigins(profile.contains("prod") ? "" : "http://localhost:3000");
+
 
     }
 }
