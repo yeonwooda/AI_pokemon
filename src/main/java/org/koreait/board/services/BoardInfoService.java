@@ -69,6 +69,7 @@ public class BoardInfoService {
     public RequestBoard getForm(BoardData item) {
         RequestBoard form = modelMapper.map(item, RequestBoard.class);
         form.setMode("edit");
+        form.setBid(item.getBoard().getBid());
 
         return form;
     }
@@ -98,6 +99,12 @@ public class BoardInfoService {
         // 게시판 아이디
         if (bids != null && !bids.isEmpty()) {
             andBuilder.and(boardData.board.bid.in(bids));
+        }
+
+        // 분류 검색
+        List<String> categories = search.getCategory();
+        if (categories != null && !categories.isEmpty()) {
+            andBuilder.and(boardData.category.in(categories));
         }
 
         /**
