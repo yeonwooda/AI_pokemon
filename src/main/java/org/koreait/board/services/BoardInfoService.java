@@ -303,12 +303,12 @@ public class BoardInfoService {
 
     /**
      * 게시글 번호와 게시판 아이디로 현재 페이지 구하기
+     *
      * @param seq
      * @param limit
      * @return
      */
-
-    public int  getPage(String bid, Long seq, int limit) {
+    public int getPage(String bid, Long seq, int limit) {
         QBoardData boardData = QBoardData.boardData;
         BooleanBuilder builder = new BooleanBuilder();
 
@@ -316,7 +316,7 @@ public class BoardInfoService {
                 .and(boardData.seq.goe(seq));
 
         long total = boardDataRepository.count(builder);
-        int page = (int)Math.ceil((double) total / limit);
+        int page = (int)Math.ceil((double)total / limit);
 
         return page;
     }
