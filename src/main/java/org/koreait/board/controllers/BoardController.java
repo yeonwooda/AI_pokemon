@@ -1,5 +1,6 @@
 package org.koreait.board.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.Data;
@@ -52,6 +53,7 @@ public class BoardController {
     private final BoardAuthService boardAuthService;
     private final CodeValueService codeValueService;
     private final CommentValidator commentValidator;
+    private final HttpServletRequest  request;
 
     /**
      * 사용자별 공통 데이터
@@ -230,7 +232,17 @@ public class BoardController {
 
         }
 
-        return null;
+        // 댓글 등록/수정 서비스
+
+        String redirectUrl = String.format("/board/view/%d#comment-%d", form.getBoardDataSeq(), 0L); // 임시
+        if (mode.equals("edit"))  {
+            return "redirect:" +  redirectUrl;
+        } else {
+            redirectUrl = request.getContextPath() +  redirectUrl;
+
+            model.addAttribute("script",  "parent.location.replace('" + redirectUrl + "');");
+            return "common/_execute_script";
+        }
     }
 
     /**
