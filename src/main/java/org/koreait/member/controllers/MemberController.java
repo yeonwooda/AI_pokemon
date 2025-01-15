@@ -79,8 +79,7 @@ public class MemberController {
         commonProcess("login", model); // 로그인 페이지 공통 처리
 
         //session.setAttribute("socialChannel", SocialChannel.NONE);
-       // session.setAttribute("socialToken", null);
-
+        //session.setAttribute("socialToken", null);
         model.addAttribute("socialChannel", SocialChannel.NONE);
         model.addAttribute("socialToken", null);
 
